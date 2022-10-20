@@ -1,0 +1,79 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/ojas/Desktop/P2Game/P2Game/P2Game.csproj": {}
+  },
+  "projects": {
+    "/Users/ojas/Desktop/P2Game/P2Game/P2Game.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/ojas/Desktop/P2Game/P2Game/P2Game.csproj",
+        "projectName": "P2Game",
+        "projectPath": "/Users/ojas/Desktop/P2Game/P2Game/P2Game.csproj",
+        "packagesPath": "/Users/ojas/.nuget/packages/",
+        "outputPath": "/Users/ojas/Desktop/P2Game/P2Game/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/ojas/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "MonoGame.Content.Builder.Task": {
+              "target": "Package",
+              "version": "[3.8.1.303, )"
+            },
+            "MonoGame.Framework.DesktopGL": {
+              "target": "Package",
+              "version": "[3.8.1.303, )"
+            },
+            "Myra": {
+              "target": "Package",
+              "version": "[1.4.4, )"
+            },
+            "XNAssets": {
+              "target": "Package",
+              "version": "[0.5.1.14, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.402/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

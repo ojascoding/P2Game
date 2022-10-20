@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "2y2vtF10d6/PzDooqBXyCJV6NluTXgTcvAylpWIVf0iArbuEeM1vHjc841AzIi5W8rkD4tY3Kd0zrKAEl23A2A==",
+  "success": true,
+  "projectFilePath": "/Users/ojas/Desktop/P2Game/P2Game/P2Game.csproj",
+  "expectedPackageFiles": [
+    "/Users/ojas/.nuget/packages/cyotek.drawing.bitmapfont/2.0.4/cyotek.drawing.bitmapfont.2.0.4.nupkg.sha512",
+    "/Users/ojas/.nuget/packages/fontstashsharp.base/1.1.6/fontstashsharp.base.1.1.6.nupkg.sha512",
+    "/Users/ojas/.nuget/packages/fontstashsharp.monogame/1.2.5/fontstashsharp.monogame.1.2.5.nupkg.sha512",
+    "/Users/ojas/.nuget/packages/fontstashsharp.rasterizers.stbtruetypesharp/1.1.6/fontstashsharp.rasterizers.stbtruetypesharp.1.1.6.nupkg.sha512",
+    "/Users/ojas/.nuget/packages/info.lundin.math.dll/1.2.6/info.lundin.math.dll.1.2.6.nupkg.sha512",
+    "/Users/ojas/.nuget/packages/monogame.content.builder.task/3.8.1.303/monogame.content.builder.task.3.8.1.303.nupkg.sha512",
+    "/Users/ojas/.nuget/packages/monogame.framework.desktopgl/3.8.1.303/monogame.framework.desktopgl.3.8.1.303.nupkg.sha512",
+    "/Users/ojas/.nuget/packages/myra/1.4.4/myra.1.4.4.nupkg.sha512",
+    "/Users/ojas/.nuget/packages/stbimagesharp/2.27.11/stbimagesharp.2.27.11.nupkg.sha512",
+    "/Users/ojas/.nuget/packages/stbtruetypesharp/1.26.10/stbtruetypesharp.1.26.10.nupkg.sha512",
+    "/Users/ojas/.nuget/packages/xnassets/0.5.1.14/xnassets.0.5.1.14.nupkg.sha512"
+  ],
+  "logs": []
+}
