@@ -4,34 +4,41 @@ using Myra.Graphics2D.UI;
 
 namespace P2Game;
 
-public class Bar
+public class Bar : UiElement
 {
-    public Label text;
     private int percent;
-    
 
-    public Bar(int amt)
+    public Bar(int amt) : base(Main.game)
+    {
+        percent = amt;
+
+        base.text = new Label()
+        {
+            Id = "label",
+            Text = percent.ToString()
+        };
+        
+        Main.widgets.Add(text);
+    }
+
+    public override void Update()
+    {
+        base.text.Text = percent.ToString();
+    }
+    
+    public void SetPercent(int amt)
     {
         percent = amt;
     }
 
-    void Update()
-    {
-        text.Text = percent.ToString();
-    }
-    
-    void SetPercent(int amt)
-    {
-        percent = amt;
-    }
-
-    int GetPercent()
+    public int GetPercent()
     {
         return percent;
     }
 
-    void SetFont(DynamicSpriteFont font)
+    public void SetFont(DynamicSpriteFont font)
     {
-        text.Font = font;
+        base.text.Font = font;
     }
+    
 }

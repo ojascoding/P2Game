@@ -6,24 +6,24 @@ using Myra.Graphics2D.UI;
 
 namespace P2Game;
 
-public class IntervalTimer
+public class IntervalTimer : UiElement
 {
     private float currentTime;
-    public Label text;
 
-    public IntervalTimer(Microsoft.Xna.Framework.Game game)
+    public IntervalTimer() : base(Main.game)
     {
         float intervalTime = 15f;
         currentTime = intervalTime;
-        MyraEnvironment.Game = game;
 
         text = new Label()
         {
             Id = "label",
             Text = intervalTime.ToString(),
-            Top = 30,
-            Left = 356
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Top
         };
+        
+        Main.widgets.Add(text);
     }
 
     public void Countdown(GameTime gameTime)
@@ -39,5 +39,4 @@ public class IntervalTimer
     {
         text.Font = font;
     }
-    
 }

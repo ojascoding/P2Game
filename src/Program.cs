@@ -1,2 +1,2 @@
-﻿using var game = new P2Game.Game1();
+﻿using var game = new P2Game.Main();
 game.Run();
