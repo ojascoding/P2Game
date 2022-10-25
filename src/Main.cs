@@ -13,7 +13,7 @@ namespace P2Game;
 public class Main : Game
 {
     //Boilerplate Variables
-    private GraphicsDeviceManager graphics; // A neccesary boilerplate code to identify the graphics driver
+    private GraphicsDeviceManager graphics; // A necessary boilerplate code to identify the graphics driver
     private SpriteBatch spriteBatch; // A tool to load all sprites
     private AssetManager assetManager; // A tool to load all content without MGCB Editor
     private FontSystem ordinaryFontSystem; // A tool to load in all fonts
@@ -24,7 +24,8 @@ public class Main : Game
     private Desktop desktop; // A necessary Myra variable to render all UI elements
     private Panel panelUi;
 
-    public static List<Widget> widgets = new List<Widget>();
+    // ReSharper disable once InconsistentNaming
+    public static readonly List<Widget> widgets = new List<Widget>();
     private Bar pollutionBar;
     private Bar popularityBar;
     private Bar tourismBar;
@@ -53,17 +54,8 @@ public class Main : Game
     protected override void LoadContent()
     {
         spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        byte[] font = File.ReadAllBytes("Content/fonts/HWYGOTH.ttf");
-        ordinaryFontSystem = new FontSystem();
-        ordinaryFontSystem.AddFont(font);
         
-        intervalTimer.SetFont(ordinaryFontSystem.GetFont(48));
-        
-        pollutionBar.SetFont(ordinaryFontSystem.GetFont(36));
-        popularityBar.SetFont(ordinaryFontSystem.GetFont(36));
-        tourismBar.SetFont(ordinaryFontSystem.GetFont(36));
-
+        SetupFonts();
         // TODO: use this.Content to load your game content here
     }
 
@@ -71,11 +63,12 @@ public class Main : Game
     {
         intervalTimer.Countdown(gameTime);
         
-        pollutionBar.Update();
+        //TODO: Cleanup the Main File and make the update function more useful
+        pollutionBar.Update(); //A method which simply updates the text on the bar 
         popularityBar.Update();
         tourismBar.Update();
-
-        // TODO: Add your update logic here
+        UpdateBars(); //A method in the main file itself that 
+        
 
         base.Update(gameTime);
     }
@@ -91,6 +84,22 @@ public class Main : Game
         base.Draw(gameTime);
     }
 
+    void UpdateBars()
+    {
+        int barFactor = 4;
+        bool runOnce = false;
+        Console.WriteLine(runOnce);
+        
+        if (intervalTimer.GetTimeUp() && runOnce == false)
+        {
+            pollutionBar.SetPercent(pollutionBar.GetPercent() + barFactor);
+            popularityBar.SetPercent(popularityBar.GetPercent() - barFactor);
+            tourismBar.SetPercent(tourismBar.GetPercent() + (popularityBar.GetPercent() - pollutionBar.GetPercent()));
+            runOnce = true;
+        }
+
+        else {runOnce = false;}
+    }
 
     // ReSharper disable once InconsistentNaming
     void SetupUI()
@@ -117,5 +126,18 @@ public class Main : Game
         
         
         desktop.Root = panelUi;
+    }
+
+    void SetupFonts()
+    {
+        byte[] font = File.ReadAllBytes("Content/fonts/HWYGOTH.ttf");
+        ordinaryFontSystem = new FontSystem();
+        ordinaryFontSystem.AddFont(font);
+        
+        intervalTimer.SetFont(ordinaryFontSystem.GetFont(48));
+        
+        pollutionBar.SetFont(ordinaryFontSystem.GetFont(36));
+        popularityBar.SetFont(ordinaryFontSystem.GetFont(36));
+        tourismBar.SetFont(ordinaryFontSystem.GetFont(36));
     }
 }

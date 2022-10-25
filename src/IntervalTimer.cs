@@ -9,6 +9,7 @@ namespace P2Game;
 public class IntervalTimer : UiElement
 {
     private float currentTime;
+    private bool timeUp;
 
     public IntervalTimer() : base(Main.game)
     {
@@ -32,9 +33,23 @@ public class IntervalTimer : UiElement
         double i =  Math.Round(currentTime, 0, MidpointRounding.AwayFromZero);
         text.Text = i.ToString();
 
-        currentTime = (currentTime <= 0) ? 15 : currentTime;
+        if (currentTime <= 0)
+        {
+            timeUp = true;
+            currentTime = 15f;
+        }
+
+        else
+        {
+            timeUp = false;
+        }
     }
 
+    public bool GetTimeUp()
+    {
+        return timeUp;
+    }
+    
     public void SetFont(DynamicSpriteFont font)
     {
         text.Font = font;
