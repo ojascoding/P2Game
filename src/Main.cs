@@ -4,7 +4,6 @@ using System.IO;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Myra.Graphics2D.UI;
 using XNAssets;
 
@@ -17,12 +16,13 @@ public class Main : Game
     private SpriteBatch spriteBatch; // A tool to load all sprites
     private AssetManager assetManager; // A tool to load all content without MGCB Editor
     private FontSystem ordinaryFontSystem; // A tool to load in all fonts
-    public static Microsoft.Xna.Framework.Game game;
+    public static Game Game;
     
     // UI
     private IntervalTimer intervalTimer; // A class I made myself to store the interval timer at the top
     private Desktop desktop; // A necessary Myra variable to render all UI elements
     private Panel panelUi;
+    
 
     // ReSharper disable once InconsistentNaming
     public static readonly List<Widget> widgets = new List<Widget>();
@@ -30,6 +30,8 @@ public class Main : Game
     private Bar popularityBar;
     private Bar tourismBar;
 
+    private Decision decision;
+    
     public Main()
     {
         graphics = new GraphicsDeviceManager(this);
@@ -41,9 +43,11 @@ public class Main : Game
     {
         // TODO: Add your initialization logic here
         Directory.SetCurrentDirectory("../../../"); //Sets the working directory to the home directory
-        game = this;
+        Game = this;
         
         SetupUI();
+        decision = new Decision();
+        decision.Enable(desktop);
 
         TitleContainerAssetResolver assetResolver = new TitleContainerAssetResolver("Content");
         assetManager = new AssetManager(GraphicsDevice, assetResolver);
@@ -68,7 +72,6 @@ public class Main : Game
         popularityBar.Update();
         tourismBar.Update();
         UpdateBars(); //A method in the main file itself that 
-        
 
         base.Update(gameTime);
     }
@@ -88,10 +91,11 @@ public class Main : Game
     {
         int barFactor = 4;
         bool runOnce = false;
-        Console.WriteLine(runOnce);
+        // ReSharper disable ConditionIsAlwaysTrueOrFalse
         
         if (intervalTimer.GetTimeUp() && runOnce == false)
         {
+            //ReSharper enable ConditionIsAlwaysTrueOrFalse
             pollutionBar.SetPercent(pollutionBar.GetPercent() + barFactor);
             popularityBar.SetPercent(popularityBar.GetPercent() - barFactor);
             tourismBar.SetPercent(tourismBar.GetPercent() + (popularityBar.GetPercent() - pollutionBar.GetPercent()));
@@ -114,18 +118,18 @@ public class Main : Game
         popularityBar = new Bar(50);
         tourismBar = new Bar(50);
         
-        pollutionBar.SetAlignment(HorizontalAlignment.Left, VerticalAlignment.Bottom);
-        popularityBar.SetAlignment(HorizontalAlignment.Right, VerticalAlignment.Bottom);
-        tourismBar.SetAlignment(HorizontalAlignment.Center, VerticalAlignment.Bottom);
+        pollutionBar.SetAlignment(HorizontalAlignment.Left, VerticalAlignment.Bottom); //Sets the pollution bar to the bottom left
+        popularityBar.SetAlignment(HorizontalAlignment.Right, VerticalAlignment.Bottom); //Sets the popularity bar to the bottom right
+        tourismBar.SetAlignment(HorizontalAlignment.Center, VerticalAlignment.Bottom); //Sets the tourism bar to the bottom
 
         foreach (var widget in widgets)
         {
-            Console.WriteLine("1");
             panelUi.Widgets.Add(widget);
         }
-        
-        
+
         desktop.Root = panelUi;
+        
+        Console.WriteLine(widgets.Count);
     }
 
     void SetupFonts()
@@ -135,9 +139,11 @@ public class Main : Game
         ordinaryFontSystem.AddFont(font);
         
         intervalTimer.SetFont(ordinaryFontSystem.GetFont(48));
-        
+
         pollutionBar.SetFont(ordinaryFontSystem.GetFont(36));
         popularityBar.SetFont(ordinaryFontSystem.GetFont(36));
         tourismBar.SetFont(ordinaryFontSystem.GetFont(36));
+        
+        decision.SetFont(ordinaryFontSystem.GetFont(24));
     }
 }

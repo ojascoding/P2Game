@@ -7,33 +7,33 @@ namespace P2Game;
 
 public class UiElement
 {
-    protected Label text;
+    protected Label Text;
 
-    public UiElement(Microsoft.Xna.Framework.Game game)
+    public UiElement()
     {
-        MyraEnvironment.Game = game;
+        MyraEnvironment.Game = Main.Game;
     }
     
     public Label GetText()
     {
-        return text;
+        return Text;
     }
         
     public void SetPosition(int left, int top)
     {
-        text.Left = left;
-        text.Top = top;
+        Text.Left = left;
+        Text.Top = top;
     }
 
     public Vector2 GetPosition()
     {
-        return new Vector2(text.Left, text.Top);
+        return new Vector2(Text.Left, Text.Top);
     }
 
     public void SetAlignment(HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
     {
-        text.HorizontalAlignment = horizontalAlignment;
-        text.VerticalAlignment = verticalAlignment;
+        Text.HorizontalAlignment = horizontalAlignment;
+        Text.VerticalAlignment = verticalAlignment;
     }
     
     public virtual void Update()

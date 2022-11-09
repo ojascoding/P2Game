@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Myra;
@@ -11,27 +12,28 @@ public class IntervalTimer : UiElement
     private float currentTime;
     private bool timeUp;
 
-    public IntervalTimer() : base(Main.game)
+    public IntervalTimer() : base()
     {
         float intervalTime = 15f;
         currentTime = intervalTime;
 
-        text = new Label()
+        Text = new Label()
         {
             Id = "label",
-            Text = intervalTime.ToString(),
+            Text = intervalTime.ToString(CultureInfo.InvariantCulture),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Top
         };
         
-        Main.widgets.Add(text);
+        Main.widgets.Add(Text);
     }
 
     public void Countdown(GameTime gameTime)
     {
         currentTime -= (float) gameTime.ElapsedGameTime.TotalSeconds;
         double i =  Math.Round(currentTime, 0, MidpointRounding.AwayFromZero);
-        text.Text = i.ToString();
+        
+        Text.Text = i.ToString(CultureInfo.CurrentCulture);
 
         if (currentTime <= 0)
         {
@@ -52,6 +54,6 @@ public class IntervalTimer : UiElement
     
     public void SetFont(DynamicSpriteFont font)
     {
-        text.Font = font;
+        Text.Font = font;
     }
 }

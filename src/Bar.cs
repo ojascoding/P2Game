@@ -8,22 +8,22 @@ public class Bar : UiElement
 {
     private int percent;
 
-    public Bar(int amt) : base(Main.game)
+    public Bar(int amt) : base()
     {
         percent = amt;
 
-        base.text = new Label()
+        base.Text = new Label()
         {
             Id = "label",
             Text = percent.ToString()
         };
         
-        Main.widgets.Add(text);
+        Main.widgets.Add(Text);
     }
 
     public override void Update()
     {
-        base.text.Text = percent.ToString();
+        base.Text.Text = percent.ToString();
     }
     
     public void SetPercent(int amt)
@@ -38,7 +38,7 @@ public class Bar : UiElement
 
     public void SetFont(DynamicSpriteFont font)
     {
-        base.text.Font = font;
+        base.Text.Font = font;
     }
     
 }
