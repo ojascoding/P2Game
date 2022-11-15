@@ -57,3 +57,4 @@
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Myra.dll
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/StbTrueTypeSharp.dll
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/XNAssets.dll
+/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Newtonsoft.Json.dll

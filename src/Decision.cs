@@ -1,7 +1,9 @@
 using System;
+using System.IO;
 using FontStashSharp;
 using Microsoft.Xna.Framework.Input;
 using Myra.Graphics2D.UI;
+
 
 namespace P2Game;
 
@@ -10,25 +12,30 @@ public class Decision : UiElement
     private Window window;
     private TextButton yesButton;
     private TextButton noButton;
-
+    
+    //Panel to store all of the UI Elements
     Panel panel;
     private Label bodyText;
+    private EventPicker eventPicker;
+    private Event randomEvent;
+    private bool hasRun = false;
 
     public Decision() : base()
     {
+        eventPicker = new EventPicker();
         window = new Window
         {
             Title = "Window"
         };
+        
+        panel = new Panel();
 
         bodyText = new Label()
         {
-            Text = "filler\nhttps://www.undergraduate.study.cam.ac.uk/applying/entrance-requirements\n ",
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
 
-        panel = new Panel();
 
         yesButton = new TextButton
         {
@@ -51,8 +58,6 @@ public class Decision : UiElement
         window.Content = panel;
         window.CloseButton.Enabled = false;
         window.CloseKey = Keys.None;
-        
-        
 
         window.Closed += (s, a) => { Console.WriteLine("Window Closed"); };
 
@@ -62,18 +67,41 @@ public class Decision : UiElement
 
     public override void Update()
     {
-       
+        if (yesButton.IsPressed && !hasRun)
+        {
+            Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost);
+            Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost);
+            Main.moneyValue += randomEvent.cost;
+
+            hasRun = true;
+            window.Close();
+        }
+        
     }
 
-    public void Enable(Desktop desktop)
+    public void Enable(Desktop desktop, bool val)
     {
-        window.ShowModal(desktop);
+        if (val)
+        {
+            window.ShowModal(desktop);
+        }
+        else
+        {
+            window.Close();
+        }
     }
 
-    public void SetFont(DynamicSpriteFont spriteFont)
+    public void SetDecision(DynamicSpriteFont hwygothFont, DynamicSpriteFont robotoFont)
     {
-        window.TitleFont = spriteFont;
-        yesButton.Font = spriteFont;
-        noButton.Font = spriteFont;
+        //Sets the fonts to each type of text
+        window.TitleFont = hwygothFont;
+        bodyText.Font = robotoFont;
+        yesButton.Font = robotoFont;
+        noButton.Font = robotoFont;
+
+        randomEvent = eventPicker.GenerateEvent();
+        window.Title = randomEvent.name;
+        window.TitleGrid.HorizontalAlignment = HorizontalAlignment.Center;
+        bodyText.Text = randomEvent.description;
     }
 }

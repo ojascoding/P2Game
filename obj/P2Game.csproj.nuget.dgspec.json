@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[1.4.4, )"
             },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.2-beta2, )"
+            },
             "XNAssets": {
               "target": "Package",
               "version": "[0.5.1.14, )"

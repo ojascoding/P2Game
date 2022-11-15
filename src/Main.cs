@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
@@ -11,11 +10,11 @@ namespace P2Game;
 
 public class Main : Game
 {
+    // ReSharper disable once NotAccessedField.Local
     //Boilerplate Variables
     private GraphicsDeviceManager graphics; // A necessary boilerplate code to identify the graphics driver
     private SpriteBatch spriteBatch; // A tool to load all sprites
     private AssetManager assetManager; // A tool to load all content without MGCB Editor
-    private FontSystem ordinaryFontSystem; // A tool to load in all fonts
     public static Game Game;
     
     // UI
@@ -26,9 +25,11 @@ public class Main : Game
 
     // ReSharper disable once InconsistentNaming
     public static readonly List<Widget> widgets = new List<Widget>();
-    private Bar pollutionBar;
-    private Bar popularityBar;
-    private Bar tourismBar;
+    static public Bar popularityBar;
+    static public Bar pollutionBar;
+    static public Bar tourismBar;
+    static public int moneyValue;
+    private Label money;
 
     private Decision decision;
     
@@ -44,10 +45,11 @@ public class Main : Game
         // TODO: Add your initialization logic here
         Directory.SetCurrentDirectory("../../../"); //Sets the working directory to the home directory
         Game = this;
-        
         SetupUI();
         decision = new Decision();
-        decision.Enable(desktop);
+        decision.Enable(desktop, true);
+
+        moneyValue = 500;
 
         TitleContainerAssetResolver assetResolver = new TitleContainerAssetResolver("Content");
         assetManager = new AssetManager(GraphicsDevice, assetResolver);
@@ -71,6 +73,7 @@ public class Main : Game
         pollutionBar.Update(); //A method which simply updates the text on the bar 
         popularityBar.Update();
         tourismBar.Update();
+        decision.Update();
         UpdateBars(); //A method in the main file itself that 
 
         base.Update(gameTime);
@@ -101,8 +104,12 @@ public class Main : Game
             tourismBar.SetPercent(tourismBar.GetPercent() + (popularityBar.GetPercent() - pollutionBar.GetPercent()));
             runOnce = true;
         }
-
+        
+        
         else {runOnce = false;}
+        
+        //Keep the money value up-to-date
+        money.Text = "$" + moneyValue;
     }
 
     // ReSharper disable once InconsistentNaming
@@ -122,28 +129,42 @@ public class Main : Game
         popularityBar.SetAlignment(HorizontalAlignment.Right, VerticalAlignment.Bottom); //Sets the popularity bar to the bottom right
         tourismBar.SetAlignment(HorizontalAlignment.Center, VerticalAlignment.Bottom); //Sets the tourism bar to the bottom
 
+        money = new Label
+        {
+            Text = "$" + moneyValue,
+            TextColor = new Color(17, 140, 79),
+            HorizontalAlignment = HorizontalAlignment.Right
+        };
+        
+        money.Text = "$" + moneyValue;
+
+        widgets.Add(money);
+
         foreach (var widget in widgets)
         {
             panelUi.Widgets.Add(widget);
         }
-
-        desktop.Root = panelUi;
         
-        Console.WriteLine(widgets.Count);
+        desktop.Root = panelUi;
     }
 
     void SetupFonts()
     {
-        byte[] font = File.ReadAllBytes("Content/fonts/HWYGOTH.ttf");
-        ordinaryFontSystem = new FontSystem();
-        ordinaryFontSystem.AddFont(font);
-        
-        intervalTimer.SetFont(ordinaryFontSystem.GetFont(48));
+        byte[] hwygoth = File.ReadAllBytes("Content/fonts/HWYGOTH.ttf");
+        byte[] roboto = File.ReadAllBytes("Content/fonts/Roboto-Regular.ttf");
+        FontSystem hwygothFontSystem = new FontSystem();
+        hwygothFontSystem.AddFont(hwygoth);
+        FontSystem robotoFontSystem = new FontSystem();
+        robotoFontSystem.AddFont(roboto);
 
-        pollutionBar.SetFont(ordinaryFontSystem.GetFont(36));
-        popularityBar.SetFont(ordinaryFontSystem.GetFont(36));
-        tourismBar.SetFont(ordinaryFontSystem.GetFont(36));
+        money.Font = hwygothFontSystem.GetFont(48);
+
+        intervalTimer.SetFont(hwygothFontSystem.GetFont(40));
+
+        pollutionBar.SetFont(hwygothFontSystem.GetFont(36));
+        popularityBar.SetFont(hwygothFontSystem.GetFont(36));
+        tourismBar.SetFont(hwygothFontSystem.GetFont(24));
         
-        decision.SetFont(ordinaryFontSystem.GetFont(24));
+        decision.SetDecision(hwygothFontSystem.GetFont(36), robotoFontSystem.GetFont(24));
     }
 }
