@@ -9,6 +9,7 @@ public class EventPicker
 {
     //Creates an array of events to store the events from the json
     public Event[] events;
+    private bool ranOnce = false;
     public EventPicker()
     {
         //Opens the json
@@ -24,7 +25,11 @@ public class EventPicker
     {
         Random random = new Random();
         Event randomEvent = events[random.Next(events.Length)];
-        randomEvent.description = randomEvent.description + "\n\n";
+        if (ranOnce)
+        {
+            randomEvent.description = randomEvent.description + "\n\n";
+        }
+        ranOnce = true;
         return randomEvent;
     }
 }

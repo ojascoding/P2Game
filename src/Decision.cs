@@ -19,15 +19,16 @@ public class Decision : UiElement
     private EventPicker eventPicker;
     private Event randomEvent;
     private bool hasRun = false;
+    private Desktop desktop;
 
-    public Decision() : base()
+    public Decision(Desktop _desktop)
     {
         eventPicker = new EventPicker();
         window = new Window
         {
             Title = "Window"
         };
-        
+        desktop = _desktop;
         panel = new Panel();
 
         bodyText = new Label()
@@ -63,6 +64,8 @@ public class Decision : UiElement
 
         Main.widgets.Add(yesButton);
         Main.widgets.Add(noButton);
+
+        IntervalTimer.CountdownEnded += ReturnDecision;
     }
 
     public override void Update()
@@ -76,7 +79,6 @@ public class Decision : UiElement
             hasRun = true;
             window.Close();
         }
-        
     }
 
     public void Enable(Desktop desktop, bool val)
@@ -90,8 +92,9 @@ public class Decision : UiElement
             window.Close();
         }
     }
-
-    public void SetDecision(DynamicSpriteFont hwygothFont, DynamicSpriteFont robotoFont)
+    
+    //Sets up the decision variable at the beginning of the game
+    public void SetDecisionOnce(DynamicSpriteFont hwygothFont, DynamicSpriteFont robotoFont)
     {
         //Sets the fonts to each type of text
         window.TitleFont = hwygothFont;
@@ -102,6 +105,14 @@ public class Decision : UiElement
         randomEvent = eventPicker.GenerateEvent();
         window.Title = randomEvent.name;
         window.TitleGrid.HorizontalAlignment = HorizontalAlignment.Center;
+        bodyText.Text = randomEvent.description;
+    }
+
+    public void ReturnDecision()
+    {
+        randomEvent = eventPicker.GenerateEvent();
+        window.Show(desktop);
+        window.Title = randomEvent.name;
         bodyText.Text = randomEvent.description;
     }
 }

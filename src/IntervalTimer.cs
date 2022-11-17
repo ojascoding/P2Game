@@ -11,6 +11,7 @@ public class IntervalTimer : UiElement
 {
     private float currentTime;
     private bool timeUp;
+    public static Action CountdownEnded;
 
     public IntervalTimer() : base()
     {
@@ -28,8 +29,9 @@ public class IntervalTimer : UiElement
         Main.widgets.Add(Text);
     }
 
-    public void Countdown(GameTime gameTime)
+    public void Countdown(GameTime gameTime, Desktop desktop)
     {
+
         currentTime -= (float) gameTime.ElapsedGameTime.TotalSeconds;
         double i =  Math.Round(currentTime, 0, MidpointRounding.AwayFromZero);
         
@@ -39,6 +41,11 @@ public class IntervalTimer : UiElement
         {
             timeUp = true;
             currentTime = 15f;
+            if (CountdownEnded != null)
+            {
+                
+                CountdownEnded();
+            }
         }
 
         else

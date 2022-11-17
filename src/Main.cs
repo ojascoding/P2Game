@@ -46,7 +46,7 @@ public class Main : Game
         Directory.SetCurrentDirectory("../../../"); //Sets the working directory to the home directory
         Game = this;
         SetupUI();
-        decision = new Decision();
+        decision = new Decision(desktop);
         decision.Enable(desktop, true);
 
         moneyValue = 500;
@@ -67,7 +67,7 @@ public class Main : Game
 
     protected override void Update(GameTime gameTime)
     {
-        intervalTimer.Countdown(gameTime);
+        intervalTimer.Countdown(gameTime, desktop);
         
         //TODO: Cleanup the Main File and make the update function more useful
         pollutionBar.Update(); //A method which simply updates the text on the bar 
@@ -165,6 +165,6 @@ public class Main : Game
         popularityBar.SetFont(hwygothFontSystem.GetFont(36));
         tourismBar.SetFont(hwygothFontSystem.GetFont(24));
         
-        decision.SetDecision(hwygothFontSystem.GetFont(36), robotoFontSystem.GetFont(24));
+        decision.SetDecisionOnce(hwygothFontSystem.GetFont(36), robotoFontSystem.GetFont(24));
     }
 }
