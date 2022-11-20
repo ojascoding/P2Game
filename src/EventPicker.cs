@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -18,6 +17,11 @@ public class EventPicker
             string json = reader.ReadToEnd();
             //Takes all the values from the json and inputs them into the event array
             events = JsonConvert.DeserializeObject<Event[]>(json);
+
+            foreach (Event _event in events)
+            {
+                _event.description += "\n\n";
+            }
         }
     }
 
@@ -27,7 +31,7 @@ public class EventPicker
         Event randomEvent = events[random.Next(events.Length)];
         if (ranOnce)
         {
-            randomEvent.description = randomEvent.description + "\n\n";
+            randomEvent.description = randomEvent.description;
         }
         ranOnce = true;
         return randomEvent;

@@ -47,7 +47,7 @@ public class Main : Game
         Game = this;
         SetupUI();
         decision = new Decision(desktop);
-        decision.Enable(desktop, true);
+        decision.Enable(true);
 
         moneyValue = 500;
 

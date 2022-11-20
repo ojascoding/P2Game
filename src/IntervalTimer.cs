@@ -41,11 +41,7 @@ public class IntervalTimer : UiElement
         {
             timeUp = true;
             currentTime = 15f;
-            if (CountdownEnded != null)
-            {
-                
-                CountdownEnded();
-            }
+            CountdownEnded?.Invoke();
         }
 
         else

@@ -70,18 +70,20 @@ public class Decision : UiElement
 
     public override void Update()
     {
-        if (yesButton.IsPressed && !hasRun)
+        
+        yesButton.TouchDown += (s, a) => 
         {
             Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost);
             Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost);
             Main.moneyValue += randomEvent.cost;
-
-            hasRun = true;
+            
             window.Close();
-        }
+        };
+
+
     }
 
-    public void Enable(Desktop desktop, bool val)
+    public void Enable(bool val)
     {
         if (val)
         {
@@ -108,8 +110,9 @@ public class Decision : UiElement
         bodyText.Text = randomEvent.description;
     }
 
-    public void ReturnDecision()
+    private void ReturnDecision()
     {
+        hasRun = false;
         randomEvent = eventPicker.GenerateEvent();
         window.Show(desktop);
         window.Title = randomEvent.name;
