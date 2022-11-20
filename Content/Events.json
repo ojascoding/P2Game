@@ -4,9 +4,9 @@
       "name" : "Beach Cleanup",
       "description" : "A local environmental group has offered to clean the beach\nWill you accept?",
       "effects" : "Pollution -",
-      "cost" : 0,
-      "pollutionCost" : -10,
-      "popularityCost" : 0
+      "cost" : [0, 0],
+      "pollutionCost" : [-10, 0],
+      "popularityCost" : [0, -15]
     }
     
   ]

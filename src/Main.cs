@@ -52,15 +52,15 @@ public class Main : Game
         moneyValue = 500;
 
         TitleContainerAssetResolver assetResolver = new TitleContainerAssetResolver("Content");
-        assetManager = new AssetManager(GraphicsDevice, assetResolver);
+        assetManager = new AssetManager(GraphicsDevice, assetResolver); //The thing needed to bypass the MGCB Editor to load sprites
         
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-        spriteBatch = new SpriteBatch(GraphicsDevice);
-        
+        spriteBatch = new SpriteBatch(GraphicsDevice); //Creates the device needed to load sprites and art
+
         SetupFonts();
         // TODO: use this.Content to load your game content here
     }
@@ -74,7 +74,7 @@ public class Main : Game
         popularityBar.Update();
         tourismBar.Update();
         decision.Update();
-        UpdateBars(); //A method in the main file itself that 
+        UpdateBars(); //A method in the main file itself that updates all 3 bars
 
         base.Update(gameTime);
     }

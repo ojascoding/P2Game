@@ -70,16 +70,26 @@ public class Decision : UiElement
 
     public override void Update()
     {
-        
-        yesButton.TouchDown += (s, a) => 
-        {
-            Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost);
-            Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost);
-            Main.moneyValue += randomEvent.cost;
-            
-            window.Close();
-        };
 
+        if (yesButton.IsPressed)
+        {
+            Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[0]);
+            Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost[0]);
+            Main.moneyValue += randomEvent.cost[0];
+
+            yesButton.IsPressed = false;
+            window.Close();
+        }
+
+        if (noButton.IsPressed)
+        {
+            Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[1]);
+            Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost[1]);
+            Main.moneyValue += randomEvent.cost[1];
+
+            noButton.IsPressed = false;
+            window.Close();
+        }
 
     }
 
@@ -112,7 +122,6 @@ public class Decision : UiElement
 
     private void ReturnDecision()
     {
-        hasRun = false;
         randomEvent = eventPicker.GenerateEvent();
         window.Show(desktop);
         window.Title = randomEvent.name;
