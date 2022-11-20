@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,22 +14,22 @@ public class Bar : UiElement
     private Texture2D sprite;
     private Rectangle spriteRect;
 
-    public Bar(int amt, AssetManager assetManager, string barSprite, int x, int y) : base()
+    public Bar(int amt, Stream stream, GraphicsDevice graphicsDevice, int x, int y) : base()
     {
         percent = amt;
-        sprite = assetManager.Load<Texture2D>(barSprite);
+        sprite = Texture2D.FromStream(graphicsDevice, stream);
 
-        spriteRect = new Rectangle(x, y, amt, 24);
+        spriteRect = new Rectangle(x, y, 100, 24);
     }
 
     public override void Update()
     {
-        base.Text.Text = percent.ToString();
+        spriteRect.Width = percent;
     }
 
     public void Render(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(sprite, spriteRect, Color.White);
+        spriteBatch.Draw(sprite, new Vector2(0, 0), spriteRect, Color.White);
     }
     
     public void SetPercent(int amt)

@@ -53,11 +53,13 @@ public class Main : Game
 
         TitleContainerAssetResolver assetResolver = new TitleContainerAssetResolver("../../../../Content");
         assetManager = new AssetManager(GraphicsDevice, assetResolver); //The thing needed to bypass the MGCB Editor to load sprites
-        
+
         SetupArt();
         SetupFonts();
         
         base.Initialize();
+        
+        
     }
 
     protected override void LoadContent()
@@ -86,6 +88,7 @@ public class Main : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
         
         spriteBatch.Begin();
+        pollutionBar.Render(spriteBatch);
         desktop.Render();
         spriteBatch.End();
 
@@ -100,7 +103,6 @@ public class Main : Game
         
         if (intervalTimer.GetTimeUp() && runOnce == false)
         {
-            //ReSharper enable ConditionIsAlwaysTrueOrFalse
             pollutionBar.SetPercent(pollutionBar.GetPercent() + barFactor);
             popularityBar.SetPercent(popularityBar.GetPercent() - barFactor);
             tourismBar.SetPercent(tourismBar.GetPercent() + (popularityBar.GetPercent() - pollutionBar.GetPercent()));
@@ -145,13 +147,12 @@ public class Main : Game
 
     void SetupArt()
     {
-        pollutionBar = new Bar(50, assetManager, "Sprites/Trash-Bar.png", 0, 380);
-        popularityBar = new Bar(50, assetManager, "Sprites/Trash-Bar.png", 700, 380);
+        string trashBarImage = "Content/Sprites/Trash-Bar.png";
+        Stream trashBarStream = new System.IO.FileStream(trashBarImage, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+
+        pollutionBar = new Bar(50, trashBarStream, graphics.GraphicsDevice, 0, 380);
+        popularityBar = new Bar(50, trashBarStream, graphics.GraphicsDevice, 700, 380);
         // tourismBar = new Bar();
-        
-        pollutionBar.SetAlignment(HorizontalAlignment.Left, VerticalAlignment.Bottom); //Sets the pollution bar to the bottom left
-        popularityBar.SetAlignment(HorizontalAlignment.Right, VerticalAlignment.Bottom); //Sets the popularity bar to the bottom right
-        tourismBar.SetAlignment(HorizontalAlignment.Center, VerticalAlignment.Bottom);
     }
     
     void SetupFonts()
@@ -167,10 +168,6 @@ public class Main : Game
 
         intervalTimer.SetFont(hwygothFontSystem.GetFont(40));
 
-        pollutionBar.SetFont(hwygothFontSystem.GetFont(36));
-        popularityBar.SetFont(hwygothFontSystem.GetFont(36));
-        tourismBar.SetFont(hwygothFontSystem.GetFont(24));
-        
         decision.SetDecisionOnce(hwygothFontSystem.GetFont(36), robotoFontSystem.GetFont(24));
     }
 }
