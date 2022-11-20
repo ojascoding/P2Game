@@ -51,8 +51,11 @@ public class Main : Game
 
         moneyValue = 500;
 
-        TitleContainerAssetResolver assetResolver = new TitleContainerAssetResolver("Content");
+        TitleContainerAssetResolver assetResolver = new TitleContainerAssetResolver("../../../../Content");
         assetManager = new AssetManager(GraphicsDevice, assetResolver); //The thing needed to bypass the MGCB Editor to load sprites
+        
+        SetupArt();
+        SetupFonts();
         
         base.Initialize();
     }
@@ -60,8 +63,7 @@ public class Main : Game
     protected override void LoadContent()
     {
         spriteBatch = new SpriteBatch(GraphicsDevice); //Creates the device needed to load sprites and art
-
-        SetupFonts();
+        
         // TODO: use this.Content to load your game content here
     }
 
@@ -72,7 +74,7 @@ public class Main : Game
         //TODO: Cleanup the Main File and make the update function more useful
         pollutionBar.Update(); //A method which simply updates the text on the bar 
         popularityBar.Update();
-        tourismBar.Update();
+        // tourismBar.Update();
         decision.Update();
         UpdateBars(); //A method in the main file itself that updates all 3 bars
 
@@ -120,14 +122,7 @@ public class Main : Game
         // Setting up the UI Desktop
         panelUi = new Panel();
         desktop = new Desktop();
-
-        pollutionBar = new Bar(50);
-        popularityBar = new Bar(50);
-        tourismBar = new Bar(50);
-        
-        pollutionBar.SetAlignment(HorizontalAlignment.Left, VerticalAlignment.Bottom); //Sets the pollution bar to the bottom left
-        popularityBar.SetAlignment(HorizontalAlignment.Right, VerticalAlignment.Bottom); //Sets the popularity bar to the bottom right
-        tourismBar.SetAlignment(HorizontalAlignment.Center, VerticalAlignment.Bottom); //Sets the tourism bar to the bottom
+        //Sets the tourism bar to the bottom
 
         money = new Label
         {
@@ -148,6 +143,17 @@ public class Main : Game
         desktop.Root = panelUi;
     }
 
+    void SetupArt()
+    {
+        pollutionBar = new Bar(50, assetManager, "Sprites/Trash-Bar.png", 0, 380);
+        popularityBar = new Bar(50, assetManager, "Sprites/Trash-Bar.png", 700, 380);
+        // tourismBar = new Bar();
+        
+        pollutionBar.SetAlignment(HorizontalAlignment.Left, VerticalAlignment.Bottom); //Sets the pollution bar to the bottom left
+        popularityBar.SetAlignment(HorizontalAlignment.Right, VerticalAlignment.Bottom); //Sets the popularity bar to the bottom right
+        tourismBar.SetAlignment(HorizontalAlignment.Center, VerticalAlignment.Bottom);
+    }
+    
     void SetupFonts()
     {
         byte[] hwygoth = File.ReadAllBytes("Content/fonts/HWYGOTH.ttf");

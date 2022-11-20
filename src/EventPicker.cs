@@ -30,11 +30,6 @@ public class EventPicker
     {
         Random random = new Random();
         Event randomEvent = events[random.Next(events.Length)];
-        // if (ranOnce)
-        // {
-        //     randomEvent.description = randomEvent.description;
-        // }
-        // ranOnce = true;
         return randomEvent;
     }
 }
@@ -44,9 +39,9 @@ public class Event
 {
     public string name;
     public string description;
-    public string effects;
     public int[] cost;
     public int[] pollutionCost;
     public int[] popularityCost;
+    public string prerequisites;
 }
 

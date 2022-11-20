@@ -11,7 +11,7 @@ public class IntervalTimer : UiElement
 {
     private float currentTime;
     private bool timeUp;
-    public static Action CountdownEnded;
+    public static Action CountdownEnded; //An event that pulses whenever the countdown runs out
 
     public IntervalTimer() : base()
     {

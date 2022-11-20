@@ -21,6 +21,9 @@ public class Decision : UiElement
     private bool hasRun = false;
     private Desktop desktop;
 
+    private int cyclesLeft;
+    private Random random;
+
     public Decision(Desktop _desktop)
     {
         eventPicker = new EventPicker();
@@ -66,25 +69,29 @@ public class Decision : UiElement
         Main.widgets.Add(noButton);
 
         IntervalTimer.CountdownEnded += ReturnDecision;
+
+        random = new Random();
+        cyclesLeft = random.Next(2, 5);
     }
 
     public override void Update()
     {
-
+        Console.WriteLine(cyclesLeft);
         if (yesButton.IsPressed)
         {
-            Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[0]);
+            //Set the bar to the bar + whatever amount is in the event
+            Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[0]); // * 0 is the yes value in the Event class
             Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost[0]);
             Main.moneyValue += randomEvent.cost[0];
 
-            yesButton.IsPressed = false;
+            yesButton.IsPressed = false; // * Toggles the button off afterwards as that generates bug if not done
             window.Close();
         }
 
         if (noButton.IsPressed)
         {
-            Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[1]);
-            Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost[1]);
+            Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[1]); // * 1 is the no value in the Event class
+            Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost[1]); 
             Main.moneyValue += randomEvent.cost[1];
 
             noButton.IsPressed = false;
@@ -122,9 +129,16 @@ public class Decision : UiElement
 
     private void ReturnDecision()
     {
-        randomEvent = eventPicker.GenerateEvent();
-        window.Show(desktop);
-        window.Title = randomEvent.name;
-        bodyText.Text = randomEvent.description;
+        cyclesLeft--;
+        
+        if (cyclesLeft == 0)
+        {
+            randomEvent = eventPicker.GenerateEvent();
+            window.Show(desktop);
+            window.Title = randomEvent.name;
+            bodyText.Text = randomEvent.description;
+
+            cyclesLeft = random.Next(2, 5);
+        }
     }
 }
