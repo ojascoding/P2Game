@@ -58,3 +58,44 @@
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/StbTrueTypeSharp.dll
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/XNAssets.dll
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Newtonsoft.Json.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/P2Game
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/P2Game.deps.json
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/P2Game.runtimeconfig.json
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/P2Game.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/P2Game.pdb
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/Cyotek.Drawing.BitmapFont.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/FontStashSharp.Base.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/FontStashSharp.MonoGame.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/FontStashSharp.Rasterizers.StbTrueTypeSharp.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/info.lundin.math.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/MonoGame.Extended.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/MonoGame.Framework.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/Myra.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/Newtonsoft.Json.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/StbImageSharp.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/StbTrueTypeSharp.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/XNAssets.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/runtimes/linux-x64/native/libSDL2-2.0.so.0
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/runtimes/linux-x64/native/libopenal.so.1
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/runtimes/osx/native/libSDL2.dylib
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/runtimes/osx/native/libopenal.1.dylib
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/runtimes/win-x64/native/SDL2.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/runtimes/win-x64/native/soft_oal.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/runtimes/win-x86/native/SDL2.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/runtimes/win-x86/native/soft_oal.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/obj/Debug/net6.0/P2Game.csproj.AssemblyReference.cache
+/Users/ojas/Desktop/P2Game copy/P2Game/obj/Debug/net6.0/P2Game.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ojas/Desktop/P2Game copy/P2Game/obj/Debug/net6.0/P2Game.AssemblyInfoInputs.cache
+/Users/ojas/Desktop/P2Game copy/P2Game/obj/Debug/net6.0/P2Game.AssemblyInfo.cs
+/Users/ojas/Desktop/P2Game copy/P2Game/obj/Debug/net6.0/P2Game.csproj.CoreCompileInputs.cache
+/Users/ojas/Desktop/P2Game copy/P2Game/obj/Debug/net6.0/P2Game.csproj.CopyComplete
+/Users/ojas/Desktop/P2Game copy/P2Game/obj/Debug/net6.0/P2Game.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/obj/Debug/net6.0/refint/P2Game.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/obj/Debug/net6.0/P2Game.pdb
+/Users/ojas/Desktop/P2Game copy/P2Game/obj/Debug/net6.0/P2Game.genruntimeconfig.cache
+/Users/ojas/Desktop/P2Game copy/P2Game/obj/Debug/net6.0/ref/P2Game.dll
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/Content/Sprites/Trash-Bar.xnb
+/Users/ojas/Desktop/P2Game copy/P2Game/bin/Debug/net6.0/Content/Sprites/Trash-Bar-Grid.xnb
+/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/Trash-Bar-Grid.xnb
+/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/Trash-Bar.xnb
+/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/MonoGame.Extended.dll

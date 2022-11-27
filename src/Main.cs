@@ -21,15 +21,20 @@ public class Main : Game
     private IntervalTimer intervalTimer; // A class I made myself to store the interval timer at the top
     private Desktop desktop; // A necessary Myra variable to render all UI elements
     private Panel panelUi;
-    
+    FontSystem hwygothFontSystem = new FontSystem();
+    FontSystem robotoFontSystem = new FontSystem();
+
+
 
     // ReSharper disable once InconsistentNaming
     public static readonly List<Widget> widgets = new List<Widget>();
-    static public Bar popularityBar;
-    static public Bar pollutionBar;
-    static public Bar tourismBar;
-    static public int moneyValue;
+    public static Bar popularityBar;
+    public static Bar pollutionBar;
+    private static Bar tourismBar;
+    public static int moneyValue;
     private Label money;
+
+    public static bool paused;
 
     private Decision decision;
     
@@ -45,38 +50,44 @@ public class Main : Game
         // TODO: Add your initialization logic here
         Directory.SetCurrentDirectory("../../../"); //Sets the working directory to the home directory
         Game = this;
-        SetupUI();
+        SetupUi();
         decision = new Decision(desktop);
         decision.Enable(true);
 
         moneyValue = 500;
 
-        TitleContainerAssetResolver assetResolver = new TitleContainerAssetResolver("../../../../Content");
-        assetManager = new AssetManager(GraphicsDevice, assetResolver); //The thing needed to bypass the MGCB Editor to load sprites
-
-        SetupArt();
-        SetupFonts();
         
         base.Initialize();
-        
-        
+        SetupFonts();
+
     }
 
     protected override void LoadContent()
     {
         spriteBatch = new SpriteBatch(GraphicsDevice); //Creates the device needed to load sprites and art
-        
+        var trashBarPath = "Sprites/Trash-Bar";
+        var trashBackgroundBarPath = "Sprites/Trash-Bar-Grid";
+        var trashBarTexture = Content.Load<Texture2D>(trashBarPath);
+        var trashBackgroundBarTexture = Content.Load<Texture2D>(trashBackgroundBarPath);
+
+        pollutionBar = new Bar(graphics.GraphicsDevice ,50, trashBarTexture, trashBackgroundBarTexture,0, graphics.PreferredBackBufferHeight - 48, new Color(138, 111, 48), "Pollution", 0);
+        popularityBar = new Bar( graphics.GraphicsDevice, 50,trashBarTexture, trashBackgroundBarTexture, 600, graphics.PreferredBackBufferHeight - 48, Color.Yellow, "Popularity", 700);
+
         // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
     {
+        if (Decision.isGameOver)
+        {
+            GameOver();
+        }
+        
         intervalTimer.Countdown(gameTime, desktop);
         
         //TODO: Cleanup the Main File and make the update function more useful
         pollutionBar.Update(); //A method which simply updates the text on the bar 
         popularityBar.Update();
-        // tourismBar.Update();
         decision.Update();
         UpdateBars(); //A method in the main file itself that updates all 3 bars
 
@@ -88,8 +99,9 @@ public class Main : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
         
         spriteBatch.Begin();
-        pollutionBar.Render(spriteBatch);
         desktop.Render();
+        pollutionBar.Render(spriteBatch);
+        popularityBar.Render(spriteBatch);
         spriteBatch.End();
 
         base.Draw(gameTime);
@@ -99,13 +111,12 @@ public class Main : Game
     {
         int barFactor = 4;
         bool runOnce = false;
-        // ReSharper disable ConditionIsAlwaysTrueOrFalse
         
         if (intervalTimer.GetTimeUp() && runOnce == false)
         {
             pollutionBar.SetPercent(pollutionBar.GetPercent() + barFactor);
             popularityBar.SetPercent(popularityBar.GetPercent() - barFactor);
-            tourismBar.SetPercent(tourismBar.GetPercent() + (popularityBar.GetPercent() - pollutionBar.GetPercent()));
+            // tourismBar.SetPercent(tourismBar.GetPercent() + (popularityBar.GetPercent() - pollutionBar.GetPercent()));
             runOnce = true;
         }
         
@@ -116,8 +127,7 @@ public class Main : Game
         money.Text = "$" + moneyValue;
     }
 
-    // ReSharper disable once InconsistentNaming
-    void SetupUI()
+    void SetupUi()
     {
         intervalTimer = new IntervalTimer(); //Creates a new interval timer (Class made by Me)
         
@@ -132,7 +142,7 @@ public class Main : Game
             TextColor = new Color(17, 140, 79),
             HorizontalAlignment = HorizontalAlignment.Right
         };
-        
+
         money.Text = "$" + moneyValue;
 
         widgets.Add(money);
@@ -144,30 +154,63 @@ public class Main : Game
         
         desktop.Root = panelUi;
     }
-
-    void SetupArt()
-    {
-        string trashBarImage = "Content/Sprites/Trash-Bar.png";
-        Stream trashBarStream = new System.IO.FileStream(trashBarImage, System.IO.FileMode.Open, System.IO.FileAccess.Read);
-
-        pollutionBar = new Bar(50, trashBarStream, graphics.GraphicsDevice, 0, 380);
-        popularityBar = new Bar(50, trashBarStream, graphics.GraphicsDevice, 700, 380);
-        // tourismBar = new Bar();
-    }
     
     void SetupFonts()
     {
         byte[] hwygoth = File.ReadAllBytes("Content/fonts/HWYGOTH.ttf");
         byte[] roboto = File.ReadAllBytes("Content/fonts/Roboto-Regular.ttf");
-        FontSystem hwygothFontSystem = new FontSystem();
         hwygothFontSystem.AddFont(hwygoth);
-        FontSystem robotoFontSystem = new FontSystem();
         robotoFontSystem.AddFont(roboto);
 
         money.Font = hwygothFontSystem.GetFont(48);
 
         intervalTimer.SetFont(hwygothFontSystem.GetFont(40));
+        
+        pollutionBar.SetFont(hwygothFontSystem.GetFont(36));
+        popularityBar.SetFont(hwygothFontSystem.GetFont(36));
 
         decision.SetDecisionOnce(hwygothFontSystem.GetFont(36), robotoFontSystem.GetFont(24));
+    }
+
+    void GameOver()
+    {
+        if (pollutionBar.GetPercent() > 50 || popularityBar.GetPercent() < 75)
+        {
+            Lose();
+        }
+        else
+        {
+            Win();
+        }
+    }
+
+    void Lose()
+    {
+        Label loseText = new Label
+        {
+            Text = "You Lose!",
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Font = hwygothFontSystem.GetFont(48)
+        };
+        
+        panelUi.Widgets.Add(loseText);
+        desktop.Root = panelUi;
+        paused = true;
+    }
+
+    void Win()
+    {
+        Label winText = new Label
+        {
+            Text = "You Win!",
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Font = hwygothFontSystem.GetFont(48)
+        };
+        
+        panelUi.Widgets.Add(winText);
+        desktop.Root = panelUi;
+        paused = true;
     }
 }

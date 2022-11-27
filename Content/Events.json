@@ -12,61 +12,11 @@
 
     {
       "name" : "No Visitors?",
-      "description" : "Business is particularily slow today, you lose some popularity",
+      "description" : "Business is particularly slow today\nWill you launch some fireworks to draw more customers?",
       "effects" : "Popularity -",
       "cost" : [0, 0],
-      "pollutionCost" : [0, 0],
-      "popularityCost" : [-5, -5],
-      "prerequisite" : "-1"
-    },
-
-    {
-      "name" : "Public Holiday",
-      "description" : "It's a public holiday! Crowds flock to your beach",
-      "effects" : "Popularity +",
-      "cost" : [0, 0],
-      "pollutionCost" : [5, 5],
-      "popularityCost" : [15, 15],
-      "prerequisite" : "-1"
-    },
-
-    {
-      "name" : "Climate Proposal",
-      "description" : "A local climate activism groups asks for you\nto preserve a section of your beach for local wildlife\nDo you accept?",
-      "effects" : "Popularity -, Pollution -",
-      "cost" : [0, 0],
-      "pollutionCost" : [-15, 0],
-      "popularityCost" : [-5, 0],
-      "prerequisite" : "-1"
-    },
-
-    {
-      "name" : "Climate Loan",
-      "description" : "The climate group asks for some money as a loan\nto purchase some fencing and other habitat equipment\nDo you accept?",
-      "effects" : "Pollution -",
-      "cost" : [-300, 0],
-      "pollutionCost" : [-15, 0],
-      "popularityCost" : [0, 0],
-      "prerequisite" : "3a"
-    },
-
-    {
-      "name" : "Climate Boycott",
-      "description" : "The climate group starts boycotting your beach\nsaying that you hate the climate\nWill you chase them out or do nothing?",
-      "effects" : "Popularity -, Pollution -",
-      "cost" : [0, 0],
-      "pollutionCost" : [0, -10],
-      "popularityCost" : [-15, -10],
-      "prerequisite" : "3b"
-    },
-
-    {
-      "name" : "Rock Concert",
-      "description" : "A local rock band called Muskets and Tulips asks if they can perform in your beach\nDo you accept?",
-      "effects" : "Popularity -, Pollution -",
-      "cost" : [0, 0],
       "pollutionCost" : [20, 0],
-      "popularityCost" : [35, 0],
+      "popularityCost" : [25, -5],
       "prerequisite" : "-1"
     }
   ]

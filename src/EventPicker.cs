@@ -26,11 +26,16 @@ public class EventPicker
     }
     
     //Picks a random event from the list of events
-    public Event GenerateEvent()
+    public Event GenerateEvent(int i)
     {
-        Random random = new Random();
-        Event randomEvent = events[random.Next(events.Length)];
-        return randomEvent;
+        // Random random = new Random();
+        // Event randomEvent = events[random.Next(events.Length)];
+        return events[i]; //Returns a set event
+    }
+
+    public int GetEventNum()
+    {
+        return events.Length;
     }
 }
 

@@ -18,11 +18,14 @@ public class Decision : UiElement
     private Label bodyText;
     private EventPicker eventPicker;
     private Event randomEvent;
-    private bool hasRun = false;
     private Desktop desktop;
 
     private int cyclesLeft;
     private Random random;
+
+    private int eventIndex = 0;
+
+    static public bool isGameOver;
 
     public Decision(Desktop _desktop)
     {
@@ -71,33 +74,52 @@ public class Decision : UiElement
         IntervalTimer.CountdownEnded += ReturnDecision;
 
         random = new Random();
-        cyclesLeft = random.Next(2, 5);
+        cyclesLeft = 1/*random.Next(2, 5)*/;
     }
 
     public override void Update()
     {
-        Console.WriteLine(cyclesLeft);
-        if (yesButton.IsPressed)
+        if (!Main.paused)
         {
-            //Set the bar to the bar + whatever amount is in the event
-            Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[0]); // * 0 is the yes value in the Event class
-            Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost[0]);
-            Main.moneyValue += randomEvent.cost[0];
+            Console.WriteLine(cyclesLeft);
+            if (yesButton.IsPressed)
+            {
+                //Set the bar to the bar + whatever amount is in the event
+                Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[0]); // * 0 is the yes value in the Event class
+                Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost[0]);
+                Main.moneyValue += randomEvent.cost[0];
 
-            yesButton.IsPressed = false; // * Toggles the button off afterwards as that generates bug if not done
-            window.Close();
+                yesButton.IsPressed = false; // * Toggles the button off afterwards as that generates bug if not done
+                
+                if (eventIndex == eventPicker.GetEventNum())
+                {
+                    isGameOver = true;
+                }
+                
+                window.Close();
+            }
+
+            if (noButton.IsPressed)
+            {
+                Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[1]); // * 1 is the no value in the Event class
+                Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost[1]); 
+                Main.moneyValue += randomEvent.cost[1];
+
+                noButton.IsPressed = false;
+                
+                if (eventIndex == eventPicker.GetEventNum())
+                {
+                    isGameOver = true;
+                }
+                
+                window.Close();
+                
+                
+            }
+
+            
+
         }
-
-        if (noButton.IsPressed)
-        {
-            Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[1]); // * 1 is the no value in the Event class
-            Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost[1]); 
-            Main.moneyValue += randomEvent.cost[1];
-
-            noButton.IsPressed = false;
-            window.Close();
-        }
-
     }
 
     public void Enable(bool val)
@@ -121,7 +143,7 @@ public class Decision : UiElement
         yesButton.Font = robotoFont;
         noButton.Font = robotoFont;
 
-        randomEvent = eventPicker.GenerateEvent();
+        randomEvent = eventPicker.GenerateEvent(eventIndex++);
         window.Title = randomEvent.name;
         window.TitleGrid.HorizontalAlignment = HorizontalAlignment.Center;
         bodyText.Text = randomEvent.description;
@@ -133,12 +155,17 @@ public class Decision : UiElement
         
         if (cyclesLeft == 0)
         {
-            randomEvent = eventPicker.GenerateEvent();
+            // randomEvent = eventPicker.GenerateEvent();
+
+            randomEvent = eventPicker.GenerateEvent(eventIndex++);
+            
             window.Show(desktop);
             window.Title = randomEvent.name;
             bodyText.Text = randomEvent.description;
 
-            cyclesLeft = random.Next(2, 5);
+            cyclesLeft = 1/*random.Next(2, 5)*/;
         }
     }
+    
+    
 }

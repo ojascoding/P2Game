@@ -1,0 +1,81 @@
+,
+
+    {
+      "name" : "Public Holiday",
+      "description" : "It's a public holiday! Crowds flock to your beach\nDo you want to restrict the amount of people or not?",
+      "effects" : "Popularity +",
+      "cost" : [0, 0],
+      "pollutionCost" : [5, 15],
+      "popularityCost" : [15, 25],
+      "prerequisite" : "-1"
+    },
+
+    {
+      "name" : "Climate Proposal",
+      "description" : "A local climate activism groups asks for you\nto preserve a section of your beach for local wildlife\nDo you accept?",
+      "effects" : "Popularity -, Pollution -",
+      "cost" : [0, 0],
+      "pollutionCost" : [-15, 0],
+      "popularityCost" : [-5, 0],
+      "prerequisite" : "-1"
+    },
+
+    {
+      "name" : "Sea Turtle Season",
+      "description" : "Some sea turtles are coming up to shore to lay eggs\nWill you cordon off that section of the beach?",
+      "effects" : "Pollution -",
+      "cost" : [0, 0],
+      "pollutionCost" : [-10, 0],
+      "popularityCost" : [-5, 0],
+      "prerequisite" : "3a"
+    },
+
+    {
+      "name" : "Rock Concert",
+      "description" : "A local rock band called Muskets and Tulips asks\nIf they can perform in your beach\nDo you accept?",
+      "effects" : "Popularity -, Pollution -",
+      "cost" : [0, 0],
+      "pollutionCost" : [20, 0],
+      "popularityCost" : [35, 0],
+      "prerequisite" : "-1"
+    },
+
+    {
+      "name" : "Sun's Shining",
+      "description" : "You notice that today is quite hot\nWill you close the beach today to protect people's health?",
+      "effects" : "Popularity -, Pollution -",
+      "cost" : [0, 0],
+      "pollutionCost" : [0, -5],
+      "popularityCost" : [-10, -5],
+      "prerequisite" : "-1"
+    },
+
+    {
+      "name" : "Climate Boycott",
+      "description" : "The climate group starts boycotting your beach\nsaying that you hate the climate\nWill you chase them out or do nothing?",
+      "effects" : "Popularity -, Pollution -",
+      "cost" : [0, 0],
+      "pollutionCost" : [0, -10],
+      "popularityCost" : [-15, -10],
+      "prerequisite" : "3b"
+    },
+
+    {
+      "name" : "Celebrity Trouble",
+      "description" : "A local celebrity is caught littering in your beach\nWill you apprehend them which may result in bad PR?\nOr let them go free?",
+      "effects" : "Popularity -, Pollution -",
+      "cost" : [0, 0],
+      "pollutionCost" : [-10, 5],
+      "popularityCost" : [-15, 5],
+      "prerequisite" : "3b"
+    },
+
+    {
+      "name" : "Lot's of Garbage",
+      "description" : "Overnight, a lot of trash has washed onto the beach\nWill you close the beach and clean it up\nOr keep business as usual?",
+      "effects" : "Popularity -, Pollution -",
+      "cost" : [0, 0],
+      "pollutionCost" : [0, -20],
+      "popularityCost" : [-15, -5],
+      "prerequisite" : "3b"
+    }

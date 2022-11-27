@@ -31,22 +31,24 @@ public class IntervalTimer : UiElement
 
     public void Countdown(GameTime gameTime, Desktop desktop)
     {
-
-        currentTime -= (float) gameTime.ElapsedGameTime.TotalSeconds;
-        double i =  Math.Round(currentTime, 0, MidpointRounding.AwayFromZero);
+        if (!Main.paused)
+        {
+            currentTime -= (float) gameTime.ElapsedGameTime.TotalSeconds;
+            double i =  Math.Round(currentTime, 0, MidpointRounding.AwayFromZero);
         
-        Text.Text = i.ToString(CultureInfo.CurrentCulture);
+            Text.Text = i.ToString(CultureInfo.CurrentCulture);
 
-        if (currentTime <= 0)
-        {
-            timeUp = true;
-            currentTime = 15f;
-            CountdownEnded?.Invoke();
-        }
+            if (currentTime <= 0)
+            {
+                timeUp = true;
+                currentTime = 15f;
+                CountdownEnded?.Invoke();
+            }
 
-        else
-        {
-            timeUp = false;
+            else
+            {
+                timeUp = false;
+            }
         }
     }
 
@@ -59,4 +61,5 @@ public class IntervalTimer : UiElement
     {
         Text.Font = font;
     }
+
 }
