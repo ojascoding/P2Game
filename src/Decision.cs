@@ -81,7 +81,7 @@ public class Decision : UiElement
     {
         if (!Main.paused)
         {
-            Console.WriteLine(cyclesLeft);
+            // Console.WriteLine(cyclesLeft);
             if (yesButton.IsPressed)
             {
                 //Set the bar to the bar + whatever amount is in the event

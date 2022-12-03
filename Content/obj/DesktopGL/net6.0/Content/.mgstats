@@ -1,3 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"/Users/ojas/Desktop/P2Game/P2Game/Content/Sprites/BeachBackground.png","/Users/ojas/Desktop/P2Game/P2Game/Content/bin/DesktopGL/Content/Sprites/BeachBackground.xnb","TextureProcessor","Texture2DContent",28367,1536085,0.313597
 "/Users/ojas/Desktop/P2Game/P2Game/Content/Sprites/Trash-Bar-Grid.png","/Users/ojas/Desktop/P2Game/P2Game/Content/bin/DesktopGL/Content/Sprites/Trash-Bar-Grid.xnb","TextureProcessor","Texture2DContent",176,9685,0.250472
 "/Users/ojas/Desktop/P2Game/P2Game/Content/Sprites/Trash-Bar.png","/Users/ojas/Desktop/P2Game/P2Game/Content/bin/DesktopGL/Content/Sprites/Trash-Bar.xnb","TextureProcessor","Texture2DContent",393,10453,0.00784
+"/Users/ojas/Desktop/P2Game/P2Game/Content/Sprites/Trash-Bin.png","/Users/ojas/Desktop/P2Game/P2Game/Content/bin/DesktopGL/Content/Sprites/Trash-Bin.xnb","TextureProcessor","Texture2DContent",288,1621,0.230476

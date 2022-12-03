@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace P2Game;
 
+
 public class EventPicker
 {
     //Creates an array of events to store the events from the json

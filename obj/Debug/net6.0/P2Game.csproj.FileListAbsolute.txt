@@ -99,3 +99,5 @@
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/Trash-Bar-Grid.xnb
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/Trash-Bar.xnb
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/MonoGame.Extended.dll
+/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/BeachBackground.xnb
+/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/Trash-Bin.xnb

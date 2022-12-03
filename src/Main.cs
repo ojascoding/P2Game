@@ -2,6 +2,7 @@
 using System.IO;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Myra.Graphics2D.UI;
 using XNAssets;
@@ -23,6 +24,7 @@ public class Main : Game
     private Panel panelUi;
     FontSystem hwygothFontSystem = new FontSystem();
     FontSystem robotoFontSystem = new FontSystem();
+    private Texture2D backgroundSprite;
 
 
 
@@ -65,13 +67,16 @@ public class Main : Game
     protected override void LoadContent()
     {
         spriteBatch = new SpriteBatch(GraphicsDevice); //Creates the device needed to load sprites and art
-        var trashBarPath = "Sprites/Trash-Bar";
+        backgroundSprite = Content.Load<Texture2D>("Sprites/BeachBackground");
+
+        var trashBarPath = "Sprites/Trash-Bin";
         var trashBackgroundBarPath = "Sprites/Trash-Bar-Grid";
         var trashBarTexture = Content.Load<Texture2D>(trashBarPath);
         var trashBackgroundBarTexture = Content.Load<Texture2D>(trashBackgroundBarPath);
 
-        pollutionBar = new Bar(graphics.GraphicsDevice ,50, trashBarTexture, trashBackgroundBarTexture,0, graphics.PreferredBackBufferHeight - 48, new Color(138, 111, 48), "Pollution", 0);
-        popularityBar = new Bar( graphics.GraphicsDevice, 50,trashBarTexture, trashBackgroundBarTexture, 600, graphics.PreferredBackBufferHeight - 48, Color.Yellow, "Popularity", 700);
+
+        pollutionBar = new Bar(trashBarTexture, trashBackgroundBarTexture,0, graphics.PreferredBackBufferHeight - 48);
+        popularityBar = new Bar( trashBarTexture, trashBackgroundBarTexture, 600, graphics.PreferredBackBufferHeight - 48);
 
         // TODO: use this.Content to load your game content here
     }
@@ -96,13 +101,15 @@ public class Main : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
-        
+        GraphicsDevice.Clear(Color.Transparent);
+
         spriteBatch.Begin();
-        desktop.Render();
-        pollutionBar.Render(spriteBatch);
-        popularityBar.Render(spriteBatch);
+        spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), Color.White);
+        pollutionBar.Render(graphics.GraphicsDevice, spriteBatch);
+        popularityBar.Render(graphics.GraphicsDevice, spriteBatch);
         spriteBatch.End();
+        
+        desktop.Render();
 
         base.Draw(gameTime);
     }
@@ -110,18 +117,13 @@ public class Main : Game
     void UpdateBars()
     {
         int barFactor = 4;
-        bool runOnce = false;
         
-        if (intervalTimer.GetTimeUp() && runOnce == false)
+        if (intervalTimer.GetTimeUp())
         {
-            pollutionBar.SetPercent(pollutionBar.GetPercent() + barFactor);
-            popularityBar.SetPercent(popularityBar.GetPercent() - barFactor);
+            pollutionBar.Update(pollutionBar.GetPercent() + barFactor);
+            popularityBar.Update(popularityBar.GetPercent() - barFactor);
             // tourismBar.SetPercent(tourismBar.GetPercent() + (popularityBar.GetPercent() - pollutionBar.GetPercent()));
-            runOnce = true;
         }
-        
-        
-        else {runOnce = false;}
         
         //Keep the money value up-to-date
         money.Text = "$" + moneyValue;
@@ -165,9 +167,6 @@ public class Main : Game
         money.Font = hwygothFontSystem.GetFont(48);
 
         intervalTimer.SetFont(hwygothFontSystem.GetFont(40));
-        
-        pollutionBar.SetFont(hwygothFontSystem.GetFont(36));
-        popularityBar.SetFont(hwygothFontSystem.GetFont(36));
 
         decision.SetDecisionOnce(hwygothFontSystem.GetFont(36), robotoFontSystem.GetFont(24));
     }

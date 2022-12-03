@@ -1,99 +1,73 @@
 using System;
-using System.Net.Mime;
-using FontStashSharp;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using MonoGame.Extended.Sprites;
-using MonoGame.Extended.Shapes;
 using MonoGame.Extended.VectorDraw;
-using Myra.Graphics2D.UI;
 
 namespace P2Game;
 
 public class Bar : UiElement
 {
-    private int percent;
-    public Vector2 scale;
-    private Texture2D barTexture;
-    private Texture2D barBackgroundTexture;
-    
-    private Rectangle spriteRect;
-    private Rectangle backgroundSpriteRect;
-    private Rectangle newBounds;
-    private int oldPercent;
-    private GraphicsDevice graphicsDevice;
+    public float scale;
+    private Texture2D background;
+    private Texture2D bin;
 
-    private Color color;
+    private Vector2 position;
+    private float maxValue;
+    private int currentValue;
+    private Rectangle part;
 
-    public Bar(GraphicsDevice _graphicsDevice, int amt, Texture2D _barTexture, Texture2D _barBackgroundTexture, int x,
-        int y, Color _color, String text, int left)
+    public Bar(Texture2D trashBinTexture, Texture2D barBackgroundTexture, int x, int y)
     {
-        percent = amt;
-        scale = new Vector2(2, 2);
+        currentValue = 50;
+        maxValue = 100;
+        scale = 2;
 
-        barTexture = _barTexture;
-        barBackgroundTexture = _barBackgroundTexture;
-        
-        spriteRect = new Rectangle(x, y, Convert.ToInt32(108 * scale.X), Convert.ToInt32(24 * scale.X));
-        backgroundSpriteRect = new Rectangle(x, y, Convert.ToInt32(108 * scale.X), Convert.ToInt32(24 * scale.X));
+        bin = trashBinTexture;
+        background = barBackgroundTexture;
 
-        graphicsDevice = _graphicsDevice;
-        
-        oldPercent = percent;
-        newBounds = spriteRect;
-        color = _color;
-
-        Text = new Label
-        {
-            Text = text,
-            Top = 396,
-            Left = left
-        };
-        Main.widgets.Add(Text);
+        position = new Vector2(x, y);
+        part = new Rectangle(0, 0, (int) (currentValue * scale + 8), (int) (bin.Height * scale));
     }
 
-    public override void Update()
+    public void Update(int value)
     {
-        if (!Main.paused)
-        {
-            newBounds.Width += percent - oldPercent; //Since the width of the 
-            // Console.WriteLine("Percent is " + percent + "\nOldPercent is " + oldPercent + "\nNewbounds width is " + newBounds.Width +"\nSpriterect width is " + spriteRect.Width);
-        }
+        // if (!Main.paused)
+        currentValue = value;
+        part.Width = (int) (currentValue * scale + 8);
+        // Console.WriteLine(part.Width);
     }
 
-    public void Render(SpriteBatch spriteBatch)
+    public void Render(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
     {
-        // spriteBatch.Draw(barTexture,  spriteRect, spriteRect, Color.White);
-        // spriteBatch.Draw(barBackgroundTexture, backgroundSpriteRect, Color.White);
+        Console.WriteLine(currentValue);
+        spriteBatch.FillRectangle(position.X, position.Y, currentValue * scale,
+            background.Height * scale, new Color(109, 86, 34), 0.5f);
+        spriteBatch.Draw(background, new Rectangle((int) position.X, (int) position.Y, (int) (background.Width * scale),
+            (int) (background.Height * scale)), Color.White);
+        spriteBatch.Draw(bin, new Rectangle((int) position.X, (int) position.Y, (int) (bin.Width * scale), (int) (bin.Height * scale)), Color.White);
         
         //Kinda like spritebatch but for shapes
-        PrimitiveBatch primitiveBatch = new PrimitiveBatch(graphicsDevice);
-        //The actual thing that does the drawing
-        PrimitiveDrawing primitiveDrawing = new PrimitiveDrawing(primitiveBatch);
-        //Temporary junk to set up the shape spritebatch
-        Matrix projection = Matrix.CreateOrthographicOffCenter(0f, 800, 480, 0f, 0f, 1f);
-        Matrix other = Matrix.Identity;
-        primitiveBatch.Begin(ref projection, ref other);
-        primitiveDrawing.DrawSolidRectangle(new Vector2(spriteRect.X, spriteRect.Y), percent * 2, 48, color); //Actual Bar
-        primitiveDrawing.DrawRectangle(new Vector2(spriteRect.X, spriteRect.Y), 200, 48, Color.Black); //Border around it
-        primitiveBatch.End();
+        // PrimitiveBatch primitiveBatch = new PrimitiveBatch(graphicsDevice);
+        // //The actual thing that does the drawing
+        // PrimitiveDrawing primitiveDrawing = new PrimitiveDrawing(primitiveBatch);
+        // //Temporary junk to set up the shape spritebatch
+        // Matrix projection = Matrix.CreateOrthographicOffCenter(0f, 800, 480, 0f, 0f, 1f);
+        // Matrix other = Matrix.Identity;
+        // primitiveBatch.Begin(ref projection, ref other);
+        // primitiveDrawing.DrawSolidRectangle(new Vector2(position.X, position.Y), currentValue * scale, background.Height, new Color(109, 86, 34)); //Actual Bar
+        // primitiveBatch.End();
+        
+        
     }
 
     public void SetPercent(int amt)
     {
-        oldPercent = percent;
-        percent = amt;
+        currentValue = amt;
     }
 
     public int GetPercent()
     {
-        return percent;
-    }
-    
-    public void SetFont(DynamicSpriteFont font)
-    {
-        Text.Font = font;
+        return currentValue;
     }
 }
