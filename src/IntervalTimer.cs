@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using Myra;
 using Myra.Graphics2D.UI;
 
@@ -11,11 +12,12 @@ public class IntervalTimer : UiElement
 {
     private float currentTime;
     private bool timeUp;
+    private int maxTime = 5;
     public static Action CountdownEnded; //An event that pulses whenever the countdown runs out
 
     public IntervalTimer() : base()
     {
-        float intervalTime = 15f;
+        float intervalTime = 5;
         currentTime = intervalTime;
 
         Text = new Label()
@@ -40,15 +42,23 @@ public class IntervalTimer : UiElement
 
             if (currentTime <= 0)
             {
+                Text.Visible = false;
                 timeUp = true;
-                currentTime = 15f;
+                currentTime = maxTime;
                 CountdownEnded?.Invoke();
             }
 
             else
             {
+                Text.Visible = true;
                 timeUp = false;
             }
+
+        }
+
+        else
+        {
+            Text.Text = maxTime.ToString();
         }
     }
 

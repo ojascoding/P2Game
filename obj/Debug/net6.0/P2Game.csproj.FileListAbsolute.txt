@@ -101,3 +101,6 @@
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/MonoGame.Extended.dll
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/BeachBackground.xnb
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/Trash-Bin.xnb
+/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/Popularity-Icon.xnb
+/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/BeachBackgroundwithText.xnb
+/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Events.json

@@ -27,6 +27,14 @@
         <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta2" />
         <PackageReference Include="XNAssets" Version="0.5.1.14" />
     </ItemGroup>
+    <ItemGroup>
+      <None Remove="Content\Events.json" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="Events.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
         <Message Text="Restoring dotnet tools" Importance="High" />
         <Exec Command="dotnet tool restore" />

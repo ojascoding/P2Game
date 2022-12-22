@@ -36,7 +36,9 @@ public class Main : Game
     public static int moneyValue;
     private Label money;
 
-    public static bool paused;
+    private bool gameOver = false;
+
+    public static bool paused = true;
 
     private Decision decision;
     
@@ -61,33 +63,27 @@ public class Main : Game
         
         base.Initialize();
         SetupFonts();
-
     }
 
     protected override void LoadContent()
     {
         spriteBatch = new SpriteBatch(GraphicsDevice); //Creates the device needed to load sprites and art
-        backgroundSprite = Content.Load<Texture2D>("Sprites/BeachBackground");
+        backgroundSprite = Content.Load<Texture2D>("Sprites/BeachBackgroundwithText");
 
-        var trashBarPath = "Sprites/Trash-Bin";
-        var trashBackgroundBarPath = "Sprites/Trash-Bar-Grid";
-        var trashBarTexture = Content.Load<Texture2D>(trashBarPath);
-        var trashBackgroundBarTexture = Content.Load<Texture2D>(trashBackgroundBarPath);
+        
+        var trashBinTexture = Content.Load<Texture2D>("Sprites/Trash-Bin");
+        var trashBackgroundBarTexture = Content.Load<Texture2D>("Sprites/Trash-Bar-Grid");
+        var popularityTexture = Content.Load<Texture2D>("Sprites/Popularity-Icon");
 
 
-        pollutionBar = new Bar(trashBarTexture, trashBackgroundBarTexture,0, graphics.PreferredBackBufferHeight - 48);
-        popularityBar = new Bar( trashBarTexture, trashBackgroundBarTexture, 600, graphics.PreferredBackBufferHeight - 48);
+        pollutionBar = new Bar(trashBinTexture, trashBackgroundBarTexture,0, graphics.PreferredBackBufferHeight - 48, new Color(109, 86, 34));
+        popularityBar = new Bar( popularityTexture, trashBackgroundBarTexture, 600, graphics.PreferredBackBufferHeight - 48, new Color(99, 155, 255));
 
         // TODO: use this.Content to load your game content here
     }
-
+    
     protected override void Update(GameTime gameTime)
     {
-        if (Decision.isGameOver)
-        {
-            GameOver();
-        }
-        
         intervalTimer.Countdown(gameTime, desktop);
         
         //TODO: Cleanup the Main File and make the update function more useful
@@ -97,6 +93,26 @@ public class Main : Game
         UpdateBars(); //A method in the main file itself that updates all 3 bars
 
         base.Update(gameTime);
+
+        if (pollutionBar.GetPercent() <= 0)
+        {
+            Win();
+        }
+        
+        else if (pollutionBar.GetPercent() >= 100)
+        {
+            Lose();
+        }
+
+        if (popularityBar.GetPercent() >= 100)
+        {
+            Win();
+        }
+        
+        else if (pollutionBar.GetPercent() <= 0)
+        {
+            Lose();
+        }
     }
 
     protected override void Draw(GameTime gameTime)
@@ -116,14 +132,14 @@ public class Main : Game
 
     void UpdateBars()
     {
-        int barFactor = 4;
         
-        if (intervalTimer.GetTimeUp())
-        {
-            pollutionBar.Update(pollutionBar.GetPercent() + barFactor);
-            popularityBar.Update(popularityBar.GetPercent() - barFactor);
-            // tourismBar.SetPercent(tourismBar.GetPercent() + (popularityBar.GetPercent() - pollutionBar.GetPercent()));
-        }
+        
+        // if (intervalTimer.GetTimeUp())
+        // {
+        //     pollutionBar.Update(pollutionBar.GetPercent() + barFactor);
+        //     popularityBar.Update(popularityBar.GetPercent() - barFactor);
+        //     // tourismBar.SetPercent(tourismBar.GetPercent() + (popularityBar.GetPercent() - pollutionBar.GetPercent()));
+        // }
         
         //Keep the money value up-to-date
         money.Text = "$" + moneyValue;
@@ -169,18 +185,6 @@ public class Main : Game
         intervalTimer.SetFont(hwygothFontSystem.GetFont(40));
 
         decision.SetDecisionOnce(hwygothFontSystem.GetFont(36), robotoFontSystem.GetFont(24));
-    }
-
-    void GameOver()
-    {
-        if (pollutionBar.GetPercent() > 50 || popularityBar.GetPercent() < 75)
-        {
-            Lose();
-        }
-        else
-        {
-            Win();
-        }
     }
 
     void Lose()
