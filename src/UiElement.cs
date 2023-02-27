@@ -13,7 +13,7 @@ public class UiElement
 
     public UiElement()
     {
-        MyraEnvironment.Game = Main.Game;
+        MyraEnvironment.Game = Main.game;
     }
     
     public Label GetText()

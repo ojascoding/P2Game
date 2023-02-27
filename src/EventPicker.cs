@@ -13,7 +13,7 @@ public class EventPicker
     public EventPicker()
     {
         //Opens the json
-        using (StreamReader reader = File.OpenText("Events.json"))
+        using (StreamReader reader = File.OpenText("Content/Events.json"))
         {
             string json = reader.ReadToEnd();
             //Takes all the values from the json and inputs them into the event array

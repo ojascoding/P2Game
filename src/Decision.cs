@@ -102,7 +102,8 @@ public class Decision : UiElement
             if (yesButton.IsPressed && randomEvent.cost[0] < Main.moneyValue)
             {
                 //Set the bar to the bar + whatever amount is in the event
-                Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[0]); // * 0 is the yes value in the Event class
+                // * 0 is the yes value in the Event class
+                Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[0]); 
                 Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost[0]);
                 Main.moneyValue += randomEvent.cost[0];
 
@@ -118,7 +119,8 @@ public class Decision : UiElement
 
             if (noButton.IsPressed&& randomEvent.cost[1] < Main.moneyValue)
             {
-                Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[1]); // * 1 is the no value in the Event class
+                // * 1 is the no value in the Event class
+                Main.pollutionBar.SetPercent(Main.pollutionBar.GetPercent() + randomEvent.pollutionCost[1]); 
                 Main.popularityBar.SetPercent(Main.popularityBar.GetPercent() + randomEvent.popularityCost[1]); 
                 Main.moneyValue += randomEvent.cost[1];
 

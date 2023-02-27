@@ -103,4 +103,6 @@
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/Trash-Bin.xnb
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/Popularity-Icon.xnb
 /Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Sprites/BeachBackgroundwithText.xnb
-/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Events.json
+/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/Events.json
+/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/fonts/HWYGOTH.TTF
+/Users/ojas/Desktop/P2Game/P2Game/bin/Debug/net6.0/Content/fonts/Roboto-Regular.ttf

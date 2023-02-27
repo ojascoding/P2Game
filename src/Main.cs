@@ -2,10 +2,10 @@
 using System.IO;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Myra.Graphics2D;
+using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
-using XNAssets;
 
 namespace P2Game;
 
@@ -15,33 +15,42 @@ public class Main : Game
     //Boilerplate Variables
     private GraphicsDeviceManager graphics; // A necessary boilerplate code to identify the graphics driver
     private SpriteBatch spriteBatch; // A tool to load all sprites
-    private AssetManager assetManager; // A tool to load all content without MGCB Editor
-    public static Game Game;
+    public static Game game;
     
     // UI
     private IntervalTimer intervalTimer; // A class I made myself to store the interval timer at the top
-    private Desktop desktop; // A necessary Myra variable to render all UI elements
+    private Desktop mainDesktop; // A necessary Myra variable to render all UI elements
     private Panel panelUi;
     FontSystem hwygothFontSystem = new FontSystem();
     FontSystem robotoFontSystem = new FontSystem();
+    
+    private Texture2D backgroundSpritewText;
     private Texture2D backgroundSprite;
-
-
-
-    // ReSharper disable once InconsistentNaming
+    
     public static readonly List<Widget> widgets = new List<Widget>();
     public static Bar popularityBar;
     public static Bar pollutionBar;
-    private static Bar tourismBar;
     public static int moneyValue;
     private Label money;
-
-    private bool gameOver = false;
 
     public static bool paused = true;
 
     private Decision decision;
+
+    private GameState currentState;
+
+    private Desktop menuDesktop;
+    private Panel menuPanel;
+
+    private TextButton startButton;
+    private TextButton quitButton;
+    private Label title;
     
+    enum GameState
+    {
+        MainMenu,
+        MainState
+    }
     public Main()
     {
         graphics = new GraphicsDeviceManager(this);
@@ -53,40 +62,65 @@ public class Main : Game
     {
         // TODO: Add your initialization logic here
         Directory.SetCurrentDirectory("../../../"); //Sets the working directory to the home directory
-        Game = this;
+        game = this;
+
+        currentState = GameState.MainMenu;
+
         SetupUi();
-        decision = new Decision(desktop);
+        decision = new Decision(mainDesktop);
         decision.Enable(true);
-
         moneyValue = 500;
-
-        
-        base.Initialize();
         SetupFonts();
+
+        base.Initialize();
     }
 
     protected override void LoadContent()
     {
         spriteBatch = new SpriteBatch(GraphicsDevice); //Creates the device needed to load sprites and art
-        backgroundSprite = Content.Load<Texture2D>("Sprites/BeachBackgroundwithText");
+        backgroundSpritewText = Content.Load<Texture2D>("Sprites/BeachBackgroundwithText");
+        backgroundSprite = Content.Load<Texture2D>("Sprites/BeachBackground");
 
-        
         var trashBinTexture = Content.Load<Texture2D>("Sprites/Trash-Bin");
         var trashBackgroundBarTexture = Content.Load<Texture2D>("Sprites/Trash-Bar-Grid");
         var popularityTexture = Content.Load<Texture2D>("Sprites/Popularity-Icon");
 
-
         pollutionBar = new Bar(trashBinTexture, trashBackgroundBarTexture,0, graphics.PreferredBackBufferHeight - 48, new Color(109, 86, 34));
         popularityBar = new Bar( popularityTexture, trashBackgroundBarTexture, 600, graphics.PreferredBackBufferHeight - 48, new Color(99, 155, 255));
-
-        // TODO: use this.Content to load your game content here
     }
     
     protected override void Update(GameTime gameTime)
     {
-        intervalTimer.Countdown(gameTime, desktop);
-        
-        //TODO: Cleanup the Main File and make the update function more useful
+        switch (currentState)
+        {
+            case GameState.MainMenu:
+                MainMenuUpdate();
+                break;
+            
+            case GameState.MainState:
+                MainStateUpdate(gameTime);
+                break;
+        }
+    }
+
+    private void MainMenuUpdate()
+    {
+        if (startButton.IsPressed)
+        {
+            currentState = GameState.MainState;
+        }
+
+        if (quitButton.IsPressed)
+        {
+            Exit();
+        }
+    }
+
+    private void MainStateUpdate(GameTime gameTime)
+    {
+        intervalTimer.Countdown(gameTime, mainDesktop);
+            
+        //TODO: Cleanup the Main File and make the update function more useful 
         pollutionBar.Update(); //A method which simply updates the text on the bar 
         popularityBar.Update();
         decision.Update();
@@ -99,17 +133,19 @@ public class Main : Game
             Win();
         }
         
+        else if (popularityBar.GetPercent() >= 100)
+        {
+            Win();
+        }
+        
         else if (pollutionBar.GetPercent() >= 100)
         {
             Lose();
         }
 
-        if (popularityBar.GetPercent() >= 100)
-        {
-            Win();
-        }
         
-        else if (pollutionBar.GetPercent() <= 0)
+        
+        else if (popularityBar.GetPercent() <= 0)
         {
             Lose();
         }
@@ -119,21 +155,41 @@ public class Main : Game
     {
         GraphicsDevice.Clear(Color.Transparent);
 
-        spriteBatch.Begin();
-        spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), Color.White);
-        pollutionBar.Render(graphics.GraphicsDevice, spriteBatch);
-        popularityBar.Render(graphics.GraphicsDevice, spriteBatch);
-        spriteBatch.End();
-        
-        desktop.Render();
+        switch (currentState)
+        {
+            case GameState.MainMenu:
+                MainMenuDraw();
+                break;
+            
+            case GameState.MainState:
+                MainStateDraw();
+                break;
+        }
 
         base.Draw(gameTime);
     }
 
+    private void MainMenuDraw()
+    {
+        spriteBatch.Begin();
+        spriteBatch.Draw(backgroundSprite, Vector2.Zero, Color.White);
+        spriteBatch.End();
+        menuDesktop.Render();
+    }
+
+    private void MainStateDraw()
+    {
+        spriteBatch.Begin();
+        spriteBatch.Draw(backgroundSpritewText, new Vector2(0, 0), Color.White);
+        pollutionBar.Render(graphics.GraphicsDevice, spriteBatch);
+        popularityBar.Render(graphics.GraphicsDevice, spriteBatch);
+        spriteBatch.End();
+        
+        mainDesktop.Render();
+    }
+    
     void UpdateBars()
     {
-        
-        
         // if (intervalTimer.GetTimeUp())
         // {
         //     pollutionBar.Update(pollutionBar.GetPercent() + barFactor);
@@ -151,8 +207,9 @@ public class Main : Game
         
         // Setting up the UI Desktop
         panelUi = new Panel();
-        desktop = new Desktop();
+        mainDesktop = new Desktop();
         //Sets the tourism bar to the bottom
+        
 
         money = new Label
         {
@@ -163,14 +220,55 @@ public class Main : Game
 
         money.Text = "$" + moneyValue;
 
-        widgets.Add(money);
 
         foreach (var widget in widgets)
         {
             panelUi.Widgets.Add(widget);
         }
         
-        desktop.Root = panelUi;
+        mainDesktop.Root = panelUi;
+
+        menuDesktop = new Desktop();
+        menuPanel = new Panel();
+
+        startButton = new TextButton
+        {
+            Text = "Start",
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            Top = 10,
+            TextColor = Color.White,
+            Background = new SolidBrush(Color.Transparent),
+            OverBackground = new SolidBrush(Color.Transparent),
+            Border = new SolidBrush(Color.White),
+            BorderThickness = new Thickness(2)
+        };
+
+        quitButton = new TextButton
+        {
+            Text = "Quit",
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            Top = 80,
+            TextColor = Color.White,
+            Background = new SolidBrush(Color.Transparent),
+            OverBackground = new SolidBrush(Color.Transparent),
+            Border = new SolidBrush(Color.White),
+            BorderThickness = new Thickness(2)
+        };
+        
+
+        title = new Label
+        {
+            Text = "Beach Dilemma",
+            HorizontalAlignment = HorizontalAlignment.Center,
+            Top = 80
+        };
+        
+        menuPanel.Widgets.Add(startButton);
+        menuPanel.Widgets.Add(quitButton);
+        menuPanel.Widgets.Add(title);
+        menuDesktop.Root = menuPanel;
     }
     
     void SetupFonts()
@@ -183,6 +281,12 @@ public class Main : Game
         money.Font = hwygothFontSystem.GetFont(48);
 
         intervalTimer.SetFont(hwygothFontSystem.GetFont(40));
+
+        startButton.Font = robotoFontSystem.GetFont(48);
+        quitButton.Font = robotoFontSystem.GetFont(48);
+
+
+        title.Font = hwygothFontSystem.GetFont(96);
 
         decision.SetDecisionOnce(hwygothFontSystem.GetFont(36), robotoFontSystem.GetFont(24));
     }
@@ -198,7 +302,7 @@ public class Main : Game
         };
         
         panelUi.Widgets.Add(loseText);
-        desktop.Root = panelUi;
+        mainDesktop.Root = panelUi;
         paused = true;
     }
 
@@ -213,7 +317,7 @@ public class Main : Game
         };
         
         panelUi.Widgets.Add(winText);
-        desktop.Root = panelUi;
+        mainDesktop.Root = panelUi;
         paused = true;
     }
 }

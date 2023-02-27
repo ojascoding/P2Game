@@ -31,7 +31,15 @@
       <None Remove="Content\Events.json" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="Events.json">
+      <None Remove="Content\fonts\HWYGOTH.TTF" />
+      <Content Include="Content\Events.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\fonts\HWYGOTH.TTF">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="Content\fonts\Roboto-Regular.ttf" />
+      <Content Include="Content\fonts\Roboto-Regular.ttf">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

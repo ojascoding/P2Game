@@ -5,14 +5,10 @@
       "Cyotek.Drawing.BitmapFont/2.0.4": {
         "type": "package",
         "compile": {
-          "lib/net5.0/Cyotek.Drawing.BitmapFont.dll": {
-            "related": ".xml"
-          }
+          "lib/net5.0/Cyotek.Drawing.BitmapFont.dll": {}
         },
         "runtime": {
-          "lib/net5.0/Cyotek.Drawing.BitmapFont.dll": {
-            "related": ".xml"
-          }
+          "lib/net5.0/Cyotek.Drawing.BitmapFont.dll": {}
         }
       },
       "FontStashSharp.Base/1.1.6": {
@@ -204,14 +200,217 @@
       "Newtonsoft.Json/13.0.2-beta2": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/net6.0/Newtonsoft.Json.dll": {
-            "related": ".xml"
+          "lib/net6.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "StbImageSharp/2.27.11": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/StbImageSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/StbImageSharp.dll": {}
+        }
+      },
+      "StbTrueTypeSharp/1.26.10": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/StbTrueTypeSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/StbTrueTypeSharp.dll": {}
+        }
+      },
+      "XNAssets/0.5.1.14": {
+        "type": "package",
+        "dependencies": {
+          "Cyotek.Drawing.BitmapFont": "2.0.0",
+          "StbImageSharp": "2.22.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/XNAssets.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/XNAssets.dll": {}
+        }
+      }
+    },
+    "net6.0/win-x64": {
+      "Cyotek.Drawing.BitmapFont/2.0.4": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/Cyotek.Drawing.BitmapFont.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/Cyotek.Drawing.BitmapFont.dll": {}
+        }
+      },
+      "FontStashSharp.Base/1.1.6": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/FontStashSharp.Base.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FontStashSharp.Base.dll": {}
+        }
+      },
+      "FontStashSharp.MonoGame/1.2.5": {
+        "type": "package",
+        "dependencies": {
+          "Cyotek.Drawing.BitmapFont": "2.0.4",
+          "FontStashSharp.Base": "1.1.6",
+          "FontStashSharp.Rasterizers.StbTrueTypeSharp": "1.1.6",
+          "StbImageSharp": "2.27.11"
+        },
+        "compile": {
+          "lib/netstandard2.0/FontStashSharp.MonoGame.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FontStashSharp.MonoGame.dll": {}
+        }
+      },
+      "FontStashSharp.Rasterizers.StbTrueTypeSharp/1.1.6": {
+        "type": "package",
+        "dependencies": {
+          "FontStashSharp.Base": "1.1.6",
+          "StbTrueTypeSharp": "1.26.10"
+        },
+        "compile": {
+          "lib/netstandard2.0/FontStashSharp.Rasterizers.StbTrueTypeSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FontStashSharp.Rasterizers.StbTrueTypeSharp.dll": {}
+        }
+      },
+      "info.lundin.math.dll/1.2.6": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/info.lundin.math.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/info.lundin.math.dll": {}
+        }
+      },
+      "MonoGame.Content.Builder.Task/3.8.1.303": {
+        "type": "package",
+        "build": {
+          "build/MonoGame.Content.Builder.Task.props": {},
+          "build/MonoGame.Content.Builder.Task.targets": {}
+        }
+      },
+      "MonoGame.Extended/3.8.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/MonoGame.Extended.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MonoGame.Extended.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/any/netstandard2.0/CppNet.dll": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          },
+          "contentFiles/any/netstandard2.0/SharpDX.D3DCompiler.dll": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          },
+          "contentFiles/any/netstandard2.0/SharpDX.D3DCompiler.xml": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          },
+          "contentFiles/any/netstandard2.0/SharpDX.dll": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          },
+          "contentFiles/any/netstandard2.0/SharpDX.xml": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          },
+          "contentFiles/any/netstandard2.0/libmojoshader_64.dll": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          },
+          "contentFiles/any/netstandard2.0/mgfxc.deps.json": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          },
+          "contentFiles/any/netstandard2.0/mgfxc.dll": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          },
+          "contentFiles/any/netstandard2.0/mgfxc.exe": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          },
+          "contentFiles/any/netstandard2.0/mgfxc.pdb": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          },
+          "contentFiles/any/netstandard2.0/mgfxc.runtimeconfig.dev.json": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          },
+          "contentFiles/any/netstandard2.0/mgfxc.runtimeconfig.json": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
           }
+        }
+      },
+      "MonoGame.Framework.DesktopGL/3.8.1.303": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/MonoGame.Framework.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/MonoGame.Framework.dll": {}
+        },
+        "native": {
+          "runtimes/win-x64/native/SDL2.dll": {},
+          "runtimes/win-x64/native/soft_oal.dll": {}
+        },
+        "build": {
+          "build/MonoGame.Framework.DesktopGL.targets": {}
+        }
+      },
+      "Myra/1.4.4": {
+        "type": "package",
+        "dependencies": {
+          "FontStashSharp.MonoGame": "1.2.5",
+          "info.lundin.math.dll": "1.2.6"
+        },
+        "compile": {
+          "lib/netstandard2.0/Myra.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Myra.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.2-beta2": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {}
         }
       },
       "StbImageSharp/2.27.11": {
@@ -516,7 +715,6 @@
         "net6.0"
       ],
       "sources": {
-        "/usr/local/share/dotnet/x64/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -566,17 +764,35 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+            "version": "[6.0.9, 6.0.9]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[6.0.9, 6.0.9]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Runtime.win-x64",
+            "version": "[6.0.9, 6.0.9]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.402/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/6.0.109/libexec/sdk/6.0.109/RuntimeIdentifierGraph.json"
+      }
+    },
+    "runtimes": {
+      "win-x64": {
+        "#import": []
       }
     }
   }
